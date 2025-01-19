@@ -1,4 +1,44 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --dkClr: #0d6bc9;
+  --lghtClr: whitesmoke;
+  --accentClr: #190909;
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html,body {
+  height: 100%;
+}
 
+body{
+  background-color: var(--dkClr) ;
+  color: var(--lghtClr);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+}
+header,footer{
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  padding: 40px 20px;
+}
+main{
+  flex-grow: 1;
+  display: flex;
+
+}
+
+#gamecanvas{
+  border: 1 solid red;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  z-index: 1;
 }
