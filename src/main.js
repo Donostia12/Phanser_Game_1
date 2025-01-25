@@ -3,7 +3,7 @@ import "./style.css";
 import Phaser, { Physics, Scene } from "phaser";
 
 const sizes = {
-  height: 800,
+  height: 600,
   width: 400,
 };
 const speedDown = 300;
