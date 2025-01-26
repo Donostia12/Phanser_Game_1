@@ -3,8 +3,8 @@ import "./style.css";
 import Phaser, { Physics, Scene } from "phaser";
 
 const sizes = {
-  height: 600,
-  width: 400,
+  height: 720,
+  width: 480,
 };
 const speedDown = 300;
 
@@ -29,6 +29,7 @@ const config = {
     default: "arcade",
     arcade: {
       gravity: { y: speedDown },
+      debug:true
     },
   },
   Scene: { GameScene },
