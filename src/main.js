@@ -13,10 +13,10 @@ class GameScene extends Phaser.Scene {
     super("this Game ");
   }
   preload() {
-    this.load.image("logo", "/assets/Logo.ico");
+    this.load.image('bg', 'public/assets/bg.png');
   }
   create() {
-    this.add.image(0, 0, "logo");
+    this.add.image(240, 360, 'bg'); // Sesuaikan posisi gambar dengan ukuran canvas
   }
   update() {}
 }
@@ -25,14 +25,15 @@ const config = {
   width: sizes.width,
   height: sizes.height,
   canvas: gamecanvas,
-  Physics: {
+  physics: {
     default: "arcade",
     arcade: {
       gravity: { y: speedDown },
       debug:true
     },
   },
-  Scene: { GameScene },
+  scene: GameScene ,
 };
+
 
 const game = new Phaser.Game(config);
