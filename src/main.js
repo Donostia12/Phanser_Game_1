@@ -4,7 +4,7 @@ import Phaser, { Physics, Scene } from "phaser";
 
 const sizes = {
   height: 720,
-  width: 480,
+  width: 400,
 };
 const speedDown = 300;
 
@@ -14,6 +14,7 @@ class GameScene extends Phaser.Scene {
   }
   preload() {
     this.load.image('bg', 'public/assets/bg.png');
+    this.load.image('basket','public/assets/basket.png')
   }
   create() {
     this.add.image(240, 360, 'bg'); // Sesuaikan posisi gambar dengan ukuran canvas
