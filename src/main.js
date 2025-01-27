@@ -64,14 +64,12 @@ class GameScene extends Phaser.Scene {
       this
     );
 
-    // Tambahkan objek floor sebagai collider
     this.floor = this.physics.add.staticGroup();
     this.floor
       .create(sizes.width / 2, sizes.height - 10)
       .setSize(sizes.width, 20)
       .setVisible(false);
 
-    // Tambahkan overlap antara apple dan floor untuk mengurangi health
     this.physics.add.overlap(this.target, this.floor, this.appleMissed, null, this);
   }
 
@@ -149,7 +147,7 @@ window.restartGame = function() {
   const modal = document.getElementById("gameOverModal");
   modal.style.display = "none";
   game.scene.scenes[0].scene.restart();
-  game.scene.scenes[0].gameOver = false; // Reset gameOver flag
+  game.scene.scenes[0].gameOver = false; 
 };
 
 document.getElementById("restartButton").onclick = function() {
