@@ -4,41 +4,93 @@
   --lghtClr: whitesmoke;
   --accentClr: #190909;
 }
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-html,body {
+html, body {
   height: 100%;
 }
 
-body{
-  background-color: var(--dkClr) ;
+body {
+  background-color: var(--dkClr);
   color: var(--lghtClr);
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-
 }
-header,footer{
+header, footer {
   display: flex;
   justify-content: center;
-  align-items:center;
+  align-items: center;
   padding: 40px 20px;
 }
-main{
+main {
   flex-grow: 1;
   display: flex;
-
 }
-
-#gamecanvas{
-  border: 1 solid red;
+#gamecanvas {
+  border: 1px solid red;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
   z-index: 1;
+}
+
+/* Modal Styles */
+/* Modal Styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 2; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button {
+  background-color: var(--dkClr);
+  color: var(--lghtClr);
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: var(--accentClr);
 }
