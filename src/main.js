@@ -26,23 +26,29 @@ class GameScene extends Phaser.Scene {
 
   preload() {
     this.load.image("bg", "public/assets/background.png");
-    this.load.image("tree", "public/assets/tree.png");
+    this.load.spritesheet('tree', 'public/assets/tree_sheet.png', {
+      frameWidth: 480,
+      frameHeight: 768 
+    });
     this.load.image("basket", "public/assets/basket.png");
     this.load.image("apple", "public/assets/apple.png");
     this.load.image("heart", "public/assets/heart.png");
   }
 
   create() {
-    this.add
-      .image(0, 0, "bg")
-      .setOrigin(0.0)
-      .setDisplaySize(sizes.width, sizes.height);
-    this.add.image(0, 0, "tree").setOrigin(0.0);
+    this.add.image(0, 0, "bg").setOrigin(0.0).setDisplaySize(sizes.width, sizes.height);
 
-    this.player = this.physics.add
-      .image(0, 0, "basket")
-      .setOrigin(0.0)
-      .setScale(0.2);
+    this.anims.create({
+      key: 'treeAnim',
+      frames: this.anims.generateFrameNumbers('tree', { start: 0, end: 100 }), // Frame dari 0 sampai 9
+      frameRate: 24, 
+      repeat: -1 
+    });
+
+    const tree = this.add.sprite(200, 300, 'tree');
+    tree.play('treeAnim');
+
+    this.player = this.physics.add.image(0, 0, "basket").setOrigin(0.0).setScale(0.2);
     this.player.x = 10;
     this.player.y = 550;
     this.player.body.allowGravity = false;
@@ -51,26 +57,14 @@ class GameScene extends Phaser.Scene {
 
     this.cursor = this.input.keyboard.createCursorKeys();
 
-    this.target = this.physics.add
-      .image(0, 0, "apple")
-      .setOrigin(0.0)
-      .setScale(1.5);
+    this.target = this.physics.add.image(0, 0, "apple").setOrigin(0.0).setScale(1.5);
     this.target.body.setSize(25, 25);
     this.target.setVelocityY(this.speedDown);
 
-    this.physics.add.overlap(
-      this.target,
-      this.player,
-      this.targetHit,
-      null,
-      this
-    );
+    this.physics.add.overlap(this.target, this.player, this.targetHit, null, this);
 
     this.floor = this.physics.add.staticGroup();
-    this.floor
-      .create(sizes.width / 2, sizes.height - 10)
-      .setSize(sizes.width, 20)
-      .setVisible(false);
+    this.floor.create(sizes.width / 2, sizes.height - 10).setSize(sizes.width, 20).setVisible(false);
 
     this.physics.add.overlap(this.target, this.floor, this.appleMissed, null, this);
     this.updateHearts();
