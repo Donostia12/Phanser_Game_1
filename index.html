@@ -4,18 +4,28 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/icon" href="/assets/Logo.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Apple Catcher</title>
+    <title>Tanggkep Apple</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJx3Y0lH/4aAXNqZ-8Nw1ORi5wTYc4ZP4f/jp5yUGzzs5ovS5hREOQmyk0s5" crossorigin="anonymous">
   </head>
   <body>
-<header>
-  <p>Phanser test</p>
-</header>
-<main>
-
- <canvas id="gamecanvas"></canvas>
-
-</main>
-<footer>create by pemula dendu</footer>
+    <header class="bg-primary text-white text-center py-3">
+    
+      <p class="h3 mb-0" style="margin-right: 15px;">Tanggkep apple</p>
+     
+      <div id="point" class="mt-2"></div>
+    </header>
+    
+    <main class="container my-4">
+      <canvas id="gamecanvas" class="w-100 border"></canvas>
+    </main>
+    <footer class="bg-dark text-white text-center py-2">
+      <p class="mb-0">Created by Pemula Dendu</p>
+    </footer>
+    
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0v8FqL0oykqRof9Y4h1Ed2nBxEd75nwp+Tt91TmDFQFHvndw" crossorigin="anonymous"></script>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
