@@ -22,6 +22,7 @@ class GameScene extends Phaser.Scene {
     this.speedDown = speedDown;
     this.gameOver = false;
     this.hearts = [];
+    this.left_btn = null
   }
 
   preload() {
@@ -33,6 +34,7 @@ class GameScene extends Phaser.Scene {
     this.load.image("basket", "public/assets/basket.png");
     this.load.image("apple", "public/assets/apple.png");
     this.load.image("heart", "public/assets/heart.png");
+    this.load.image("left","public/assets/button.png")
   }
 
   create() {
@@ -44,10 +46,13 @@ class GameScene extends Phaser.Scene {
       frameRate: 24, 
       repeat: -1 
     });
-
     const tree = this.add.sprite(200, 300, 'tree');
     tree.play('treeAnim');
-
+    
+    this.left_btn =this.add.image(0,0,"left").setOrigin(0.0).setScale(0.2)
+    this.left_btn.x = 50
+    this.left_btn.y = 650
+    
     this.player = this.physics.add.image(0, 0, "basket").setOrigin(0.0).setScale(0.2);
     this.player.x = 10;
     this.player.y = 550;
