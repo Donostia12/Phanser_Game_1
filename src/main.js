@@ -21,6 +21,7 @@ class GameScene extends Phaser.Scene {
     this.health = initialHealth;
     this.speedDown = speedDown;
     this.gameOver = false;
+    this.hearts = [];
   }
 
   preload() {
@@ -28,6 +29,7 @@ class GameScene extends Phaser.Scene {
     this.load.image("tree", "public/assets/tree.png");
     this.load.image("basket", "public/assets/basket.png");
     this.load.image("apple", "public/assets/apple.png");
+    this.load.image("heart", "public/assets/heart.png");
   }
 
   create() {
@@ -71,6 +73,7 @@ class GameScene extends Phaser.Scene {
       .setVisible(false);
 
     this.physics.add.overlap(this.target, this.floor, this.appleMissed, null, this);
+    this.updateHearts();
   }
 
   update() {
@@ -107,8 +110,8 @@ class GameScene extends Phaser.Scene {
   appleMissed() {
     this.health--;
     console.log(`Health: ${this.health}`);
+    this.updateHearts();
     if (this.health <= 0) {
-      console.log("Game Over");
       this.gameOver = true;
       this.showGameOver();
       document.getElementById("point").innerText = `Points: ${this.point}`;
@@ -116,6 +119,17 @@ class GameScene extends Phaser.Scene {
       this.target.setY(0);
       this.target.setX(this.getRandomx());
       this.target.setVelocityY(this.speedDown);
+    }
+  }
+
+  updateHearts() {
+    this.hearts.forEach(heart => heart.destroy());
+    this.hearts = [];
+
+    for (let i = 0; i < this.health; i++) {
+      const heart = this.add.image(250 + i * 50, 30, "heart");
+      heart.setScale(0.1);
+      this.hearts.push(heart);
     }
   }
 
@@ -146,14 +160,26 @@ const game = new Phaser.Game(config);
 window.restartGame = function() {
   const modal = document.getElementById("gameOverModal");
   modal.style.display = "none";
+
+  // Restart the scene
   game.scene.scenes[0].scene.restart();
-  game.scene.scenes[0].gameOver = false; 
+
+  // Reset game state
+  game.scene.scenes[0].point = 0;
+  game.scene.scenes[0].health = initialHealth;
+  game.scene.scenes[0].gameOver = false;
+  game.scene.scenes[0].updateHearts(); // Update hearts display
+
+  // Update score display
+  document.getElementById("point").innerText = `Points: 0`;
 };
 
+// Tambahkan event listener untuk tombol restart
 document.getElementById("restartButton").onclick = function() {
   window.restartGame();
-}
+};
 
+// Tutup modal ketika pengguna mengklik tombol close
 document.getElementById("closeModal").onclick = function() {
   const modal = document.getElementById("gameOverModal");
   modal.style.display = "none";
