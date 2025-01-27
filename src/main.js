@@ -22,7 +22,10 @@ class GameScene extends Phaser.Scene {
     this.speedDown = speedDown;
     this.gameOver = false;
     this.hearts = [];
-    this.left_btn = null
+    this.left_btn = null;
+    this.right_btn = null;
+    this.isLeftButtonPressed = false;
+    this.isRightButtonPressed = false;
   }
 
   preload() {
@@ -34,7 +37,8 @@ class GameScene extends Phaser.Scene {
     this.load.image("basket", "public/assets/basket.png");
     this.load.image("apple", "public/assets/apple.png");
     this.load.image("heart", "public/assets/heart.png");
-    this.load.image("left","public/assets/button.png")
+    this.load.image("left", "public/assets/button.png");
+    this.load.image("right", "public/assets/button.png");
   }
 
   create() {
@@ -49,10 +53,32 @@ class GameScene extends Phaser.Scene {
     const tree = this.add.sprite(200, 300, 'tree');
     tree.play('treeAnim');
     
-    this.left_btn =this.add.image(0,0,"left").setOrigin(0.0).setScale(0.2)
-    this.left_btn.x = 50
-    this.left_btn.y = 650
-    
+    this.left_btn = this.add.image(50, 650, "left").setOrigin(0.0).setScale(0.2);
+    this.left_btn.setInteractive();
+
+    this.left_btn.on('pointerdown', () => {
+      this.left_btn.setAlpha(0.5); 
+      this.isLeftButtonPressed = true;
+    });
+
+    this.left_btn.on('pointerup', () => {
+      this.left_btn.setAlpha(1); 
+      this.isLeftButtonPressed = false;
+    });
+
+    this.right_btn = this.add.image(250, 650, "right").setOrigin(0.0).setScale(0.2);
+    this.right_btn.setInteractive();
+
+    this.right_btn.on('pointerdown', () => {
+      this.right_btn.setAlpha(0.5); 
+      this.isRightButtonPressed = true;
+    });
+
+    this.right_btn.on('pointerup', () => {
+      this.right_btn.setAlpha(1); 
+      this.isRightButtonPressed = false;
+    });
+
     this.player = this.physics.add.image(0, 0, "basket").setOrigin(0.0).setScale(0.2);
     this.player.x = 10;
     this.player.y = 550;
@@ -84,13 +110,21 @@ class GameScene extends Phaser.Scene {
       this.target.setVelocityY(this.speedDown);
     }
 
+    if (this.isLeftButtonPressed) {
+      this.player.setVelocityX(-this.playerspeed);
+    } else if (this.isRightButtonPressed) {
+      this.player.setVelocityX(this.playerspeed);
+    } else {
+      this.player.setVelocityX(0);
+    }
+
     const { left, right } = this.cursor;
 
     if (left.isDown) {
       this.player.setVelocityX(-this.playerspeed);
     } else if (right.isDown) {
       this.player.setVelocityX(this.playerspeed);
-    } else {
+    } else if (!this.isLeftButtonPressed && !this.isRightButtonPressed) {
       this.player.setVelocityX(0);
     }
   }
