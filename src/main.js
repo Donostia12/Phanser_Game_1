@@ -6,15 +6,17 @@ const sizes = {
   height: 786,
   width: 400,
 };
-const speedDown = 300;
+const speedDown = 30;
+const respawnsarea= 390;
 
 class GameScene extends Phaser.Scene {
   constructor() {
     super("this Game ");
     this.player
     this.cursor
-    this.playerspeed = speedDown + 50
+    this.playerspeed = 1000+ 50
     this.target 
+    this.point = 0
   }
   preload() {
     this.load.image('bg','public/assets/background.png')
@@ -32,11 +34,23 @@ class GameScene extends Phaser.Scene {
     this.player.body.allowGravity = false;
     this.player.body.allowGravity  =false
     this.cursor = this.input.keyboard.createCursorKeys()
-
-    this.target = this.physics.add.image(0, 0, 'apple').setOrigin(0.0).setScale(1.5);
+    
+    this.target = this.physics.add
+    .image(0, 0, 'apple')
+    .setOrigin(0.0)
+    .setScale(1.5);
+    this.physics.add.overlap(this.target,this.player,this.targetHit,null,this)
   }
   update() {
+
+    if (this.target.y >= sizes.height) {
+        this.target.setY(0);
+        this.target.setX(this.getRandomx())
+        this.target.setVelocityY(this.speedDown);
+    }
+    console.log(this.point);
     const {left,right} = this.cursor
+
 
     if (left.isDown) {
       this.player.setVelocityX(-this.playerspeed)
@@ -45,6 +59,14 @@ class GameScene extends Phaser.Scene {
     }else{
       this.player.setVelocityX(0)
     }
+  }
+  getRandomx(){
+    return Math.floor(Math.random()*respawnsarea);
+  }
+  targetHit(){
+    this.target.setY(0)
+    this.target.setX(this.getRandomx())
+    this.point++
   }
 }
 const config = {
